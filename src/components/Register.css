@@ -1,0 +1,87 @@
+.register-page {
+  min-height: 100vh;
+  background: #ecf0f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-card {
+  width: 400px;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.register-card h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.register-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.register-card button {
+  width: 100%;
+  padding: 12px;
+  background: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.register-card button:hover {
+  background: #1f6391;
+}
+
+.link {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.link span {
+  color: #2980b9;
+  cursor: pointer;
+}
+
+.back {
+  margin-top: 10px;
+  font-size: 13px;
+  cursor: pointer;
+  color: gray;
+}
+/* ================= ADDITIONS (NO CHANGES ABOVE) ================= */
+
+/* Same background as User Login */
+.register-page {
+  position: relative;
+  background-image: url("https://www.shutterstock.com/image-photo/men-who-dispose-rubbish-that-260nw-2131203895.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Same light overlay */
+.register-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(236, 240, 241, 0.65);
+  backdrop-filter: blur(2px);
+  z-index: 0;
+}
+
+/* Keep register card above overlay */
+.register-card {
+  position: relative;
+  z-index: 1;
+}

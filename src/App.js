@@ -7,12 +7,13 @@ import UserDashboard from "./components/UserDashboard";
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
 import AboutUs from "./components/AboutUs";
-import DriverLogin from "./components/DriverLogin";          // 🔥 ADDED
-import DriverDashboard from "./components/DriverDashboard";  // 🔥 ADDED
+import DriverLogin from "./components/DriverLogin";
+import DriverDashboard from "./components/DriverDashboard";
 
 function App() {
   const [page, setPage] = useState("home");
-  const [wasteType, setWasteType] = useState("");
+
+  // ❌ REMOVED unused wasteType (this was breaking Vercel build)
 
   const [wasteList, setWasteList] = useState([]);
 
@@ -36,7 +37,7 @@ function App() {
     }
   }, [page]);
 
-  // ✅ DRIVER PROTECTED ROUTE (🔥 NEW)
+  // ✅ DRIVER PROTECTED ROUTE
   useEffect(() => {
     if (page === "driverDashboard") {
       const driver = localStorage.getItem("driver");
@@ -57,23 +58,18 @@ function App() {
 
         {page === "adminLogin" && <AdminLogin setPage={setPage} />}
 
-        {/* 🔥 DRIVER LOGIN */}
         {page === "driverLogin" && <DriverLogin setPage={setPage} />}
 
-        {/* ✅ ABOUT US PAGE */}
         {page === "about" && <AboutUs setPage={setPage} />}
 
-        {/* ✅ USER DASHBOARD */}
         {page === "dashboard" && (
           <UserDashboard
             setPage={setPage}
-            setWasteType={setWasteType}
             wasteList={wasteList}
             setWasteList={setWasteList}
           />
         )}
 
-        {/* ✅ ADMIN DASHBOARD */}
         {page === "adminDashboard" && (
           <AdminDashboard
             setPage={setPage}
@@ -82,9 +78,9 @@ function App() {
           />
         )}
 
-        {/* 🚚 DRIVER DASHBOARD */}
-        {page === "driverDashboard" && <DriverDashboard setPage={setPage} />}
-
+        {page === "driverDashboard" && (
+          <DriverDashboard setPage={setPage} />
+        )}
       </>
     </BrowserRouter>
   );

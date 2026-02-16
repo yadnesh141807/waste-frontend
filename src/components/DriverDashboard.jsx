@@ -13,9 +13,9 @@ function DriverDashboard({ setPage }) {
     API.get(`/driver/wastes/${driver._id}`)
       .then(res => setWastes(res.data))
       .catch(err => console.error(err));
-  }, []);
 
-  // 🔥 COLLECTED STATUS UPDATE
+  }, [driver]); // ✅ FIXED ESLint warning
+
   const markAsCollected = async (id) => {
     try {
       await API.put(`/driver/collect/${id}`);
@@ -24,6 +24,7 @@ function DriverDashboard({ setPage }) {
 
       const res = await API.get(`/driver/wastes/${driver._id}`);
       setWastes(res.data);
+
     } catch (err) {
       console.error("❌ Collect Error:", err.response?.data || err.message);
       alert("Failed to update status");
@@ -33,7 +34,6 @@ function DriverDashboard({ setPage }) {
   return (
     <div className="driver-dashboard-page">
 
-      {/* LOGOUT */}
       <button
         className="logout-btn"
         onClick={() => {
@@ -44,7 +44,6 @@ function DriverDashboard({ setPage }) {
         Logout
       </button>
 
-      {/* CONTENT */}
       <div className="driver-content">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
@@ -76,7 +75,7 @@ function DriverDashboard({ setPage }) {
                 <b>Image:</b><br />
                 {w.image ? (
                   <img
-                    src={`http://localhost:5000/uploads/${w.image}`}
+                    src={`https://waste-backend-1-b1lj.onrender.com/uploads/${w.image}`}
                     alt="waste"
                     style={{
                       width: "100px",

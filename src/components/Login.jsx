@@ -1,8 +1,7 @@
 import { useState } from "react";
 import API from "../api";
 import "./Login.css";
-import { motion } from "framer-motion";   // 🔥 ADDED
-
+import { motion } from "framer-motion";
 
 function Login({ setPage }) {
   const [email, setEmail] = useState("");
@@ -16,18 +15,21 @@ function Login({ setPage }) {
     }
 
     try {
-      const res = await API.post("/auth/login", {
+      // ✅ FIXED ROUTE (added /api)
+      const res = await API.post("/api/auth/login", {
         email,
         password,
       });
 
+      // Save data in localStorage
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      localStorage.setItem("role", "user"); // 🔥 ADDED
+      localStorage.setItem("role", "user");
 
       setPage("dashboard");
     } catch (err) {
-      setError("Invalid email or password");
+      console.error(err.response?.data || err.message);
+      setError(err.response?.data?.message || "Invalid email or password");
     }
   };
 
@@ -45,12 +47,14 @@ function Login({ setPage }) {
         <input
           type="email"
           placeholder="Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
           type="password"
           placeholder="Password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 

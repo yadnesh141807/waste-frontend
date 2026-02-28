@@ -17,7 +17,7 @@ function Register({ setPage }) {
     }
 
     try {
-      await API.post("/auth/register", {
+      await API.post("/api/auth/register", {
         name,
         email,
         password,

@@ -14,7 +14,7 @@ function DriverLogin({ setPage }) {
     }
 
     try {
-      const res = await API.post("/driver/login", {
+      const res = await API.post("/api/driver/login", {
         email,
         password,
       });

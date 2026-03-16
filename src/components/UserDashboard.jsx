@@ -32,7 +32,7 @@ function UserDashboard({ setPage }) {
     if (!token) return;
 
     try {
-      const res = await API.get("/waste/my", {
+      const res = await API.get("/api/waste/my", {
         headers: { Authorization: token },
       });
       setWasteList(res.data);

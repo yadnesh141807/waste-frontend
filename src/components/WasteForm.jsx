@@ -21,7 +21,7 @@ function WasteForm({ type, setSelectedType, wasteList, setWasteList, refreshWast
       formData.append("quantity", quantity);
       if (image) formData.append("image", image);
 
-      await API.post("/waste/submit", formData, {
+     await API.post("/api/waste/submit", formData, {
         headers: {
           Authorization: token,
           "Content-Type": "multipart/form-data",

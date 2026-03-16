@@ -47,7 +47,7 @@ function UserDashboard({ setPage }) {
 
   const deleteWaste = async (id) => {
     const token = localStorage.getItem("token");
-    await API.delete(`/waste/${id}`, {
+    await API.delete(`/api/waste/${id}`, {
       headers: { Authorization: token },
     });
     loadMyWaste();

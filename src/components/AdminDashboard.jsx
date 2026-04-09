@@ -15,8 +15,6 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
   const [dEmail, setDEmail] = useState("");
   const [dPassword, setDPassword] = useState("");
 
-
-  
   // ✅ LOAD WASTE
   useEffect(() => {
     API.get("/api/waste")
@@ -27,9 +25,21 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
   // ✅ LOAD DRIVERS
   useEffect(() => {
     API.get("/admin/drivers")
-      .then((res) => setDrivers(res.data))
+      .then((res) => {
+        console.log("Drivers Response:", res.data);
+
+        if (Array.isArray(res.data)) {
+          setDrivers(res.data);
+        } else if (Array.isArray(res.data.drivers)) {
+          setDrivers(res.data.drivers);
+        } else {
+          setDrivers([]);
+        }
+      })
       .catch((err) => console.error(err));
   }, []);
+
+  console.log("Drivers State:", drivers);
 
   // ✅ ACCEPT / REJECT
   const updateStatus = async (index, status) => {
@@ -53,7 +63,7 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
     }
   };
 
-  // 🔴🔴 DELETE WASTE (ADDED)
+  // 🔴🔴 DELETE WASTE
   const deleteWaste = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this waste?");
     if (!confirmDelete) return;
@@ -85,7 +95,15 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
       setDPassword("");
 
       const res = await API.get("/admin/drivers");
-      setDrivers(res.data);
+
+      if (Array.isArray(res.data)) {
+        setDrivers(res.data);
+      } else if (Array.isArray(res.data.drivers)) {
+        setDrivers(res.data.drivers);
+      } else {
+        setDrivers([]);
+      }
+
     } catch (err) {
       alert("Driver already exists or error");
     }
@@ -109,7 +127,6 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
         <button onClick={() => setPage("home")}>Logout</button>
       </motion.header>
 
-      {/* ===== CREATE DRIVER GLASS CARD ===== */}
       <motion.div
         className="create-driver-card"
         initial={{ opacity: 0, y: 20 }}
@@ -142,7 +159,6 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
         </div>
       </motion.div>
 
-      {/* ===== STATS CARDS ===== */}
       <div className="analytics-cards">
 
         <motion.div

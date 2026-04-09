@@ -19,7 +19,7 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
   
   // ✅ LOAD WASTE
   useEffect(() => {
-    API.get("/waste")
+    API.get("/api/waste")
       .then((res) => setWasteList(res.data))
       .catch((err) => console.error(err));
   }, [setWasteList]);
@@ -41,12 +41,12 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
         : waste.pickupDate;
 
     try {
-      await API.put(`/waste/${waste._id}`, {
+      await API.put(`/api/waste/${waste._id}`, {
         status,
         pickupDate,
       });
 
-      const res = await API.get("/waste");
+      const res = await API.get("/api/waste");
       setWasteList(res.data);
     } catch (err) {
       console.error(err);
@@ -59,9 +59,9 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
     if (!confirmDelete) return;
 
     try {
-      await API.delete(`/waste/${id}`);
+      await API.delete(`/api/waste/${id}`);
 
-      const res = await API.get("/waste");
+      const res = await API.get("/api/waste");
       setWasteList(res.data);
     } catch (err) {
       console.error(err);
@@ -328,7 +328,7 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
                       console.log("API RESPONSE:", res.data);
                       alert("✅ Driver assigned successfully");
 
-                      const updated = await API.get("/waste");
+                      const updated = await API.get("/api/waste");
                       setWasteList(updated.data);
                     }}
                   >

@@ -10,7 +10,7 @@ function DriverDashboard({ setPage }) {
   useEffect(() => {
     if (!driver || !driver._id) return;
 
-    API.get(`/driver/wastes/${driver._id}`)
+    API.get(`/api/driver/wastes/${driver._id}`)   // ✅ FIXED
       .then(res => setWastes(res.data))
       .catch(err => console.error(err));
 
@@ -18,11 +18,11 @@ function DriverDashboard({ setPage }) {
 
   const markAsCollected = async (id) => {
     try {
-      await API.put(`/driver/collect/${id}`);
+      await API.put(`/api/driver/collect/${id}`);   // ✅ FIXED
 
       alert("✅ Marked as collected");
 
-      const res = await API.get(`/driver/wastes/${driver._id}`);
+      const res = await API.get(`/api/driver/wastes/${driver._id}`); // ✅ FIXED
       setWastes(res.data);
 
     } catch (err) {

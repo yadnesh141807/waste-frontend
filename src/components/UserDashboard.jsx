@@ -33,7 +33,7 @@ function UserDashboard({ setPage }) {
 
     try {
       const res = await API.get("/api/waste/my", {
-        headers: { Authorization: token },
+        headers: { Authorization: `Bearer ${token}` }
       });
       setWasteList(res.data);
     } catch (err) {

@@ -21,9 +21,9 @@ function WasteForm({ type, setSelectedType, wasteList, setWasteList, refreshWast
       formData.append("quantity", quantity);
       if (image) formData.append("image", image);
 
-     await API.post("/api/waste/submit", formData, {
+      await API.post("/api/waste/submit", formData, {
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,   // ✅ FIXED
           "Content-Type": "multipart/form-data",
         },
       });
@@ -94,7 +94,7 @@ function WasteForm({ type, setSelectedType, wasteList, setWasteList, refreshWast
         <div className="form-actions">
           <button 
             className="secondary-btn" 
-            onClick={() => setShowBhangarMenu(true)}   // ✅ SIRF YE ADD KIYA
+            onClick={() => setShowBhangarMenu(true)}
           >
             Cancel
           </button>

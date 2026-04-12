@@ -15,11 +15,13 @@ function Login({ setPage }) {
     }
 
     try {
-      // ✅ FIXED ROUTE (added /api)
       const res = await API.post("/api/auth/login", {
         email,
         password,
       });
+
+      // 🔥 FINAL FIX (IMPORTANT)
+      localStorage.clear();
 
       // Save data in localStorage
       localStorage.setItem("token", res.data.token);

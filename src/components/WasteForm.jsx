@@ -94,7 +94,7 @@ function WasteForm({ type, setSelectedType, wasteList, setWasteList, refreshWast
         <div className="form-actions">
           <button 
             className="secondary-btn" 
-            onClick={() => setShowBhangarMenu(true)}
+            onClick={() => setSelectedType("")}   // ✅ FINAL FIX
           >
             Cancel
           </button>

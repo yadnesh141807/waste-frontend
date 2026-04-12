@@ -24,7 +24,7 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
 
   // ✅ LOAD DRIVERS
   useEffect(() => {
-    API.get("/admin/drivers")
+    API.get("/api/admin/drivers")
       .then((res) => {
         console.log("Drivers Response:", res.data);
 
@@ -82,7 +82,7 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
   // ✅ CREATE DRIVER
   const createDriver = async () => {
     try {
-      await API.post("/admin/create-driver", {
+      await API.post("/api/admin/create-driver", {
         name: dName,
         email: dEmail,
         password: dPassword,
@@ -94,7 +94,7 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
       setDEmail("");
       setDPassword("");
 
-      const res = await API.get("/admin/drivers");
+      const res = await API.get("/api/admin/drivers");
 
       if (Array.isArray(res.data)) {
         setDrivers(res.data);
@@ -335,7 +335,7 @@ function AdminDashboard({ wasteList, setWasteList, setPage }) {
                         return;
                       }
 
-                      const res = await API.put("/admin/assign-driver", {
+                      const res = await API.put("/api/admin/assign-driver", {
                         wasteId: waste._id,
                         driverId: driverId,
                         pickupDate: waste.pickupDate,

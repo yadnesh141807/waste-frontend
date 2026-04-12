@@ -20,12 +20,13 @@ function Login({ setPage }) {
         password,
       });
 
-      // 🔥 FINAL FIX (IMPORTANT)
-      localStorage.clear();
-
-      // Save data in localStorage
+      // ✅ SAFE FIX (overwrite only)
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("user", JSON.stringify({
+        _id: res.data.user._id,
+        name: res.data.user.name,
+        email: res.data.user.email,
+      }));
       localStorage.setItem("role", "user");
 
       setPage("dashboard");

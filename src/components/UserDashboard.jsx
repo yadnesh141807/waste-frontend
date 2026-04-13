@@ -26,6 +26,7 @@ function UserDashboard({ setPage }) {
   const [showReport, setShowReport] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showBhangarMenu, setShowBhangarMenu] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const loadMyWaste = async () => {
     const token = localStorage.getItem("token");
@@ -271,8 +272,8 @@ function UserDashboard({ setPage }) {
                 <div className="profile-avatar">👤</div>
 
                 <div className="profile-info">
-                  <h3>Dhruv</h3>
-                  <p>xyz@gmail.com</p>
+                  <h3>{user?.name || "User"}</h3>
+<p>{user?.email || "No Email"}</p>
 
                   <div className="profile-stats">
                     <div className="profile-stat">

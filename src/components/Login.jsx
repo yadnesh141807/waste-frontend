@@ -20,13 +20,11 @@ function Login({ setPage }) {
         password,
       });
 
-      // ✅ SAFE FIX (overwrite only)
+      // 🔥 FIX: CLEAR OLD USER MEMORY
+      localStorage.clear();
+
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify({
-        _id: res.data.user._id,
-        name: res.data.user.name,
-        email: res.data.user.email,
-      }));
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       localStorage.setItem("role", "user");
 
       setPage("dashboard");
@@ -66,8 +64,7 @@ function Login({ setPage }) {
         <button onClick={handleLogin}>Login</button>
 
         <p className="link">
-          New user?{" "}
-          <span onClick={() => setPage("register")}>Register here</span>
+          New user? <span onClick={() => setPage("register")}>Register here</span>
         </p>
 
         <p className="back" onClick={() => setPage("home")}>
